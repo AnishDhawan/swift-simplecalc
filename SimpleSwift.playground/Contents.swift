@@ -1,11 +1,44 @@
 print("Welcome to the UW Calculator Playground")
 
 func calculate(_ args: [String]) -> Int {
-    return -1
+    if (args.last == "count") {
+        return args.count - 1;
+    } else if (args.last == "fact" ) {
+        return args.count > 1 ? factorial(Int(args[0])!) : 0
+    } else if (args.last == "avg") {
+        var sum = 0
+        for i in 0...(args.count - 1) {
+            sum = sum + (Int(args[i]) != nil ? Int(args[i])! : 0)
+        }
+        return sum / max(1, args.count - 1)
+    } else {
+        let num1 : Int = (Int(args[0]) != nil ? Int(args[0])! : 0)
+        let num2 : Int = (Int(args[2]) != nil ? Int(args[2])! : 0)
+        if(args[1] == "%") {
+            return num1 % num2
+        } else if (args[1] == "/") {
+            return num1 / num2
+        } else if (args[1] == "*") {
+            return num1 * num2
+        } else if (args[1] == "+") {
+            return num1 + num2
+        } else if (args[1] == "-") {
+            return num1 - num2
+        }
+    }
+    return -1;
 }
 
 func calculate(_ arg: String) -> Int {
-    return -1
+    return calculate(arg.split(separator: " ").map({str in String(str)}))
+}
+
+public func factorial(_ num: Int) -> Int {
+    if (num == 0) {
+        return 1
+        
+    }
+    return num * factorial(num - 1)
 }
 
 // -------------------------------------------
@@ -88,3 +121,4 @@ calculate(["2.0", "/", "2.0"]) == 1.0
 calculate(["2.0", "%", "2.0"]) == 0.0
 calculate("1.0 2.0 3.0 4.0 5.0 count") == 5
 */
+
